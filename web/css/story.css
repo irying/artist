@@ -1,0 +1,103 @@
+.con{
+	width:620px;
+	margin:0 auto;}
+.blank{
+	height:50px;}
+.blank2{
+	height:50px;}
+.blank3{
+	height:70px;}
+	
+.story_left{
+	width:620px;
+	height:220px;
+	position:relative;}
+.story_left img{
+	float:left;}
+.left_word{
+	position:absolute;
+	top:20px;
+	right:5px;
+	width:360px;}
+.story_right{
+	width:620px;
+	height:380px;
+	position:relative;}
+.story_right img{
+	float:right;}	
+.right_word{
+	position:absolute;
+	top:20px;
+	left:5px;
+	width:260px;}
+.story_last{
+	width:620px;
+	position:relative;}	
+.last_left{
+	position:absolute;
+	top:20px;
+	right:5px;
+	width:280px;}	
+
+.idea{
+	width:620px;
+	height:800px;
+	margin:0 auto;}	
+.box {
+	width: 620px; 
+	padding: 20px 0;
+	margin:0 auto;}
+
+<!--发表看法-->
+.after_blank3{
+	margin:0 auto;
+	margin-bottom:10px;}
+.line{
+	height:3px;
+	width:620px;
+	background:#dd5862;
+	margin:0 auto;}
+.text-box{
+	width:620px;
+	height:80px;
+	position:relative;}	
+.text-box .express{
+	border:1px solid #ccc;;
+	display:block;
+	height:66px;
+	width:610px;
+	resize:none;
+	padding:5px;
+	color:#ccc;}
+.text-box .btn1{
+	font-size:12px;
+	font-weight:bold;
+	position:absolute;
+	margin-bottom:0px;
+	margin-left:560px;
+	width:55px;
+	background:#f7f7f7;}
+
+.comment-box{
+	padding:10px 0;}
+.comment-box .myhead{
+	float:left;
+	width:30px;
+	height:30px;
+	margin-right:10px;}
+.comment-box .comment-content{
+	float:left;
+	width:580px;
+	margin: 8px 0;}
+.comment-box .comment-time{
+	color:#ccc;
+	margin-top:3px;
+	line-height:16px;}
+.comment-box .comment-content .comment-praise{
+	color:#333;
+	padding-left:17px;
+	display:inline-block;}
+.comment-box .comment-content .comment-operate{
+	color:#333;
+	padding-left:17px;
+	display:inline-block;}

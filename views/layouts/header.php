@@ -3,10 +3,10 @@
 	<!--导航栏-->
 	<div class="nav">
     	<ul>
-        	<li><a href="content_list.html">期刊</a></li>
-            <li><a href="story_list.html">故事</a></li>
+        	<li><a href="<?= Yii::$app->urlManager->createUrl(['article/list']);?>">期刊</a></li>
+            <li><a href="<?= Yii::$app->urlManager->createUrl(['story/list']);?>">故事</a></li>
             <li><a href="own.html">专属</a></li>
-            <li><a href="shop.html">订制</a></li>
+            <li><a href="<?= Yii::$app->urlManager->createUrl(['cart/shop']);?>">订制</a></li>
         </ul>
 		 <!--导航栏右上角-->
 		<div class="nav_r" >
@@ -21,7 +21,7 @@
     </div>
     <!--网站名字-->
     <div class="net">
-    	<p class="net_name">style</p>
+    	<p class="net_name"><a href="<?= Yii::$app->urlManager->createUrl(['']);?>">Kryie</a></p>
     </div>
     <div class="blank">
     </div>

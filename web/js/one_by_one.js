@@ -110,39 +110,39 @@ window.onload = function () {
 	play();
 	
 	
-	var num = document.getElementsByClassName('size')[0];
-	var picon1 = num.getElementsByTagName('img')[0];
-	var picon2 = num.getElementsByTagName('img')[1];
-	var picon3 = num.getElementsByTagName('img')[2];
+	// var num = document.getElementsByClassName('size')[0];
+	// var picon1 = num.getElementsByTagName('img')[0];
+	// var picon2 = num.getElementsByTagName('img')[1];
+	// var picon3 = num.getElementsByTagName('img')[2];
 	
-	var num1 = num.getElementsByClassName('num1')[0];
-	var num2 = num.getElementsByClassName('num2')[0];
-	var num3 = num.getElementsByClassName('num3')[0];
+	// var num1 = num.getElementsByClassName('num1')[0];
+	// var num2 = num.getElementsByClassName('num2')[0];
+	// var num3 = num.getElementsByClassName('num3')[0];
 	
-	var count = document.getElementById('count');
-	var countNum = count.getElementsByTagName('input')[0];
-	var add = count.getElementsByClassName('add')[0];
-	var reduce = count.getElementsByClassName('reduce')[0];
+	// var count = document.getElementById('count');
+	// var countNum = count.getElementsByTagName('input')[0];
+	// var add = count.getElementsByClassName('add')[0];
+	// var reduce = count.getElementsByClassName('reduce')[0];
 	
-	num1.onclick = function(){
-		picon1.className = "picon_on";
-		picon2.className = "picon";
-		picon3.className = "picon";}
-	num2.onclick = function(){
-		picon2.className = "picon_on";
-		picon1.className = "picon";
-		picon3.className = "picon";}
-	num3.onclick = function(){
-		picon3.className = "picon_on";
-		picon2.className = "picon";
-		picon1.className = "picon";}
-	add.onclick = function(){
-		var value = parseInt(countNum.value);
-		countNum.value = value + 1;}
-	reduce.onclick = function(){
-		if(countNum.value > 0){
-		var value = parseInt(countNum.value);
-		countNum.value = value - 1;}}
+	// num1.onclick = function(){
+	// 	picon1.className = "picon_on";
+	// 	picon2.className = "picon";
+	// 	picon3.className = "picon";}
+	// num2.onclick = function(){
+	// 	picon2.className = "picon_on";
+	// 	picon1.className = "picon";
+	// 	picon3.className = "picon";}
+	// num3.onclick = function(){
+	// 	picon3.className = "picon_on";
+	// 	picon2.className = "picon";
+	// 	picon1.className = "picon";}
+	// add.onclick = function(){
+	// 	var value = parseInt(countNum.value);
+	// 	countNum.value = value + 1;}
+	// reduce.onclick = function(){
+	// 	if(countNum.value > 0){
+	// 	var value = parseInt(countNum.value);
+	// 	countNum.value = value - 1;}}
 		
 		
 		
@@ -209,4 +209,8 @@ window.onload = function () {
 			if(light)
 			list1.style.visibility = "visible";
 			}
+
+	function proAdd(i){
+        alert(i);
+    }
 }

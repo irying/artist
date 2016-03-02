@@ -34,6 +34,11 @@ class ArticleController extends Controller
         return $this->render('view', ['model' => $model]);
     }
 
+    public function actionList()
+    {
+        return $this->render('list');
+    }
+
     // 删除评论
     public function actionDel($id)
     {
@@ -44,6 +49,7 @@ class ArticleController extends Controller
 		// Yii::$app->request->referrer;
        return $this->redirect(Yii::$app->request->referrer);
     }
+
     protected function findModel($id)
     {
     	if (($model = Article::findOne($id)) !==  null) {

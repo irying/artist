@@ -60,14 +60,14 @@
 	float:left;}
 .det {
 	width:420px;}
-/*.det:hover .info{
-	display:block;}*/
+.det:hover .info{
+	display:block;}
 .info{
 	width:160px;
 	float:left;
 	text-align:left;
-	padding-left:10px;
-	display:block;
+	padding-left:1px;
+	display:none;
 	height:240px;
 	box-shadow:0 0 8px #666666;
 	-moz-box-shadow:0 0 8px #DDD;

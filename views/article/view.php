@@ -3,10 +3,13 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\Comment;
 use app\models\Product;
+use yii\helpers\ArrayHelper;
 $this->registerCssFile('@web/css/article.css', ['depends' => app\assets\AppAsset::className()]);
 
 $aid = Yii::$app->Request->get('id');
- 
+// echo \Yii::$app->request->baseUrl;
+// var_dump(Yii::$app->request->getCsrfToken());
+// die;
 // 全局数组
 $GLOBALS['arr'] = array('','');
 showAllComment($aid);
@@ -55,7 +58,22 @@ $script = '<script> aCommentList=[];'."\n\n".$GLOBALS['arr'][0];
 $script .= '</script>';
 
 $product = Product::findAll(['aid'=> $aid]);
-var_dump($product);
+// var_dump($product);
+// $size = Product:
+$sizes = ArrayHelper::map($product, 'id', 'size');
+// var_dump($sizes);
+foreach ($sizes as $k=>$v) {
+    if(!is_array($v))
+        $sizes[$k] = explode(',', $v);
+}
+
+$colors = ArrayHelper::map($product, 'id', 'color');
+foreach ($colors as $ke=>$cv) {
+    if(!is_array($cv))
+        $colors[$ke] = explode('，', $cv);
+}
+// $sizes['2'] = array('X','M'); 
+// var_dump(\Yii::getAlias('@webroot'));
 // echo \Yii::$app->request->serverName;
 $alia = str_replace('\\', '/', \Yii::getAlias('@app'));
 // var_dump(basename($alia));
@@ -70,13 +88,13 @@ $alia = str_replace('\\', '/', \Yii::getAlias('@app'));
     </div>
     <div id="container">
         <div id="list" style="left: -620px;">
-            <img src="images/first.jpg" alt=""/>
-            <img src="images/fifth.jpg" alt=""/>
-            <img src="images/second.jpg" alt=""/>
-            <img src="images/sixth.jpg" alt=""/>
-            <img src="images/forth.jpg" alt=""/>
-            <img src="images/first.jpg" alt=""/>
-            <img src="images/fifth.jpg" alt=""/>
+            <?=Html::img('@web/images/first.jpg')?>
+            <?=Html::img('@web/images/fifth.jpg')?>
+            <?=Html::img('@web/images/second.jpg')?>
+            <?=Html::img('@web/images/third.jpg')?>
+            <?=Html::img('@web/images/forth.jpg')?>
+            <?=Html::img('@web/images/first.jpg')?>
+            <?=Html::img('@web/images/fifth.jpg')?>
         </div>
         <div id="buttons">
             <span index="1" class="on"></span>
@@ -115,34 +133,48 @@ $alia = str_replace('\\', '/', \Yii::getAlias('@app'));
                              <h4 style="text-align:center; margin:15px 0; color:#333;"><?= $val->name ?></h4>
                              <form>
                                <div class="size" id="size"> 
-                                     <p>尺码:
-                                        <a class="size_num num1" href="javaScript:;">
+                                     <p>
+                                        &nbsp;
+                                        <select id='size<?= $val->id?>'>
+                                            <option value =''>尺码</option>
+                                            <?php foreach ($sizes[$val->id] as $size) :?>
+                                                <option value = <?= $size?>><?= $size?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                        &nbsp;
+                                        <select id='color<?= $val->id?>'>
+                                            <option value =''>颜色</option>
+                                            <?php foreach ($colors[$val->id] as $color) :?>
+                                                <option value = <?= $color?>><?= $color?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                       <!--  <a class="size_num num1" href="javaScript:;">
                                             M
                                             <img class="picon" src="images/picon.gif" />
-                                        </a>
-                                        <a class="size_num num2" href="javaScript:;">
+                                        </a> -->
+                                        <!-- <a class="size_num num2" href="javaScript:;">
                                             L
                                             <img class="picon" src="images/picon.gif" />
                                         </a>
                                         <a class="size_num num3" href="javaScript:;">
                                             XL
                                             <img class="picon" src="images/picon.gif" />
-                                        </a>
+                                        </a> -->
                                      </p>
                                 </div>
                                 <div class="count" id="count">     	
-                                     <p>数量: <span class="reduce">-</span>
-                                            <input class="count-input" type="text" value="1"/>
+                                     <p>&nbsp;&nbsp;数量：&nbsp;<span class="reduce">-</span>
+                                            <input class="count-input" type="text" id="coun<?= $val->id?>" value="1"/>
                                             <span class="add">+</span>
                                      </p>
-                                     <input name="submit" value="加入购物车" class="collect" type="submit" />
+                                     <button  class="collect" id="sub<?= $val->id?>" type='button' onclick="proAdd(<?= $val->id?>)">加入购物车</button>
                                 </div>
                              </form>
                         </div>
                     </div>
                     <div class="mes">
                         <h3 style="color:#C03; font-size:16px; margin:20px 0;">三件套西装</h3>
-                        <p class="txt">三件套西装可能是西装里面价位最为惊人的，然而性价比却也是最高的。无论周末，朋友聚会，晚宴还是工作场合都能够派上用场，只需做几乎不动脑筋的搭配就能够创造出完全不同的造型。</p>
+                        <p class="txt"><?= $val->description?></p>
                     </div>
                 </div>
             </li>
@@ -178,7 +210,7 @@ $alia = str_replace('\\', '/', \Yii::getAlias('@app'));
             <!--评论列表-->
             <div class="comment-list">
                 <div class="comment-box" user="self">
-                    <img class="myhead" src="images/head/2.jpg" alt="" />
+                    <img class="myhead" src='<?=Yii::$app->request->baseUrl?>/images/first.jpg' alt="" />
                     <div class="comment-content" id="comment-content">
                         <p class="comment-txt"><span class="user">我:</span>土豪的世界...</p>
                         <p class="comment-time">
@@ -203,10 +235,10 @@ $delUrl = Yii::$app->urlManager->createUrl(['article/del']);
 $this->registerJsFile('@web/js/one_by_one.js',['depends' => app\assets\AppAsset::className()]);
 $js = <<<JS
 
-function $(s){
-        if(typeof s=='object') return s;
-        return document.getElementById(s);
-    }
+// function $(s){
+//         if(typeof s=='object') return s;
+//         return document.getElementById(s);
+//     }
 
 var html = "<form id='' action=$url method='post'>";
     html += "<input type='hidden' id='comment-user_id' name='Comment[user_id]' value='7'>";
@@ -226,7 +258,8 @@ var html = "<form id='' action=$url method='post'>";
     //为删除 和 回复 按钮绑定事件
     for(var i in aCommentList){
 
-        oComment=$('comment_id_'+aCommentList[i]);
+        // oComment=$('comment_id_'+aCommentList[i]);
+        oComment=document.getElementById('comment_id_'+aCommentList[i]);
         aBtns=oComment.getElementsByTagName('span');
         oBtnDel=aBtns[0];       
         oBtnDel.id=aCommentList[i];
@@ -254,7 +287,37 @@ var html = "<form id='' action=$url method='post'>";
                 window.location= "{$delUrl}&id="+ this.id;
             }
         }
-    }   
+    }
+   
+
 JS;
 $this->registerJs($js);
+$ajaxAdd = Yii::$app->urlManager->createUrl(['cart/ajax-add']);
+$other = <<<other
+<script type='text/javascript'>
+function proAdd(i){
+        // alert(i);
+        // alert($('#coun'+i).val());
+    var size = $('#size'+i).val();
+    var color = $('#color'+i).val();
+    var num = $('#coun'+i).val();
+    if(size == '')
+        alert('请选择尺码');
+    else if(color == '')
+        alert('请选择颜色');
+    else
+        $.get("{$ajaxAdd}?id=" + i +"&color=" + color +"&size=" + size +"&num=" + num, function(data, status) {
+            if (status == "success") {
+                if (data.status) {
+                    $("#sub"+i).html('已加入购物车');
+                    // $("#sub"+i).attr('disabled',true);
+                }
+            }
+        }, "json");
+
+}
+</script>
+other;
+
+echo $other;
 ?>

@@ -9,7 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
-AppAsset::register($this);
+// AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => '口袋',
+        'brandLabel' => '口袋后台',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -52,28 +52,92 @@ AppAsset::register($this);
                     'url' => ['/admin/comment'],
                 ],
             ],
-        ]
+        ],
+        [ 
+            'label' => '故事',
+            'url' => ['#'],
+            'active' => false,
+            'items' => [
+                [
+                    'label' => '文章',
+                    'url' => ['/admin/article'],
+                ],
+                [
+                    'label' => '图片',
+                    'url' => ['/admin/images'],
+                ],
+                [
+                    'label' => '评论',
+                    'url' => ['/admin/comment'],
+                ],
+            ],
+        ],
+        [ 
+            'label' => '商品',
+            'url' => ['#'],
+            'active' => false,
+            'items' => [
+                [
+                    'label' => '文章',
+                    'url' => ['/admin/article'],
+                ],
+                [
+                    'label' => '图片',
+                    'url' => ['/admin/images'],
+                ],
+                [
+                    'label' => '评论',
+                    'url' => ['/admin/comment'],
+                ],
+            ],
+        ],
+        [ 
+            'label' => '系统  ',
+            'url' => ['#'],
+            'active' => false,
+            'items' => [
+                [
+                    'label' => '文章',
+                    'url' => ['/admin/article'],
+                ],
+                [
+                    'label' => '图片',
+                    'url' => ['/admin/images'],
+                ],
+                [
+                    'label' => '评论',
+                    'url' => ['/admin/comment'],
+                ],
+            ],
+        ],
     ];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-left'],
         'items' => $menuItemsMain,
-    // 'encodeLabels' => false,
+        'encodeLabels' => true,
         ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ?
-                ['label' => 'Login', 'url' => ['/site/login']] :
-                [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ],
+
+    $menuItems = [
+        [
+            'label' => Yii::t('app', 'Change Password'),
+            'url' => ['site/change-password'],
         ],
-    ]);
+        ['label' => Yii::t('app', 'Home'), 'url' => ['/']],
+    ];
+if (Yii::$app->user->isGuest) {
+    $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
+} else {
+    $menuItems[] = [
+        'label' => Yii::t('app', 'Logout') . '(' . Yii::$app->user->identity->username . ')',
+        'url' => ['/site/logout'],
+        'linkOptions' => ['data-method' => 'post']
+    ];
+}
+echo Nav::widget([
+    'options' => ['class' => 'navbar-nav navbar-right'],
+    'items' => $menuItems,
+    // 'encodeLabels' => true,
+]);
     NavBar::end();
     ?>
 
