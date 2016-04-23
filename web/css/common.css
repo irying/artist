@@ -19,12 +19,14 @@ body{
 	font-size:21px;
 	display:block;
 	line-height:70px;
-	padding:0 15px;}
+	padding:0 15px;
+	text-decoration: none;
+	}
 .nav li:hover a{
 	color:#dd5862;}
 .nav_r{
 	position:absolute;
-	top:30px;
+	top:26px;
 	right:80px;
 	width:180px;
 	height:20px;
@@ -32,6 +34,9 @@ body{
 	font-size:16px;
 	font-family:"Microsoft YaHei", "微软雅黑";
 	z-index:30;}
+.nav_r a{ text-decoration: none;}	
+.nav_r:hover a{
+	color:#dd5862;}
 
 .list1{
 	width:235px;
@@ -174,6 +179,10 @@ body{
 	position:absolute;
 	top:48px;
 	left:178px;}
+.net_name a{
+	text-decoration: none;}
+.net_name:hover a{ color:#dd5862;}
+
 .check{
 	margin-left:30px;}
 /*尾部*/
@@ -189,6 +198,10 @@ body{
 	
 .blank{
 	height:100px;}
+.blank4{
+	height:50px;}
+.blank5{
+	height:30px;}
 .menu{
 	margin:0 auto;
 	height:36px;
@@ -196,6 +209,9 @@ body{
 	text-indent:10px;
 	font-family:"Microsoft YaHei", "微软雅黑";
 	line-height:36px;}
+.menu-first {
+    height: 22px;
+    margin-top: 35px;}
 .blank2{
 	height:15px;}	
 .blank3{

@@ -3,7 +3,9 @@
 namespace app\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\db\Expression;
 /**
  * This is the model class for table "{{%order}}".
  *
@@ -45,6 +47,25 @@ use Yii;
  */
 class Order extends \yii\db\ActiveRecord
 {
+    const STATUS_CANCEL = -1;
+    const STATUS_DELETED = -2;
+
+    const PAYMENT_METHOD_PAY = 1;
+    const PAYMENT_METHOD_COD = 2;
+
+    const PAYMENT_STATUS_COD = 10;
+    const PAYMENT_STATUS_UNPAID = 20;
+    const PAYMENT_STATUS_PAYING = 30;
+    const PAYMENT_STATUS_PAID = 40;
+
+    const SHIPMENT_STATUS_UNSHIPPED = 60;
+    const SHIPMENT_STATUS_PREPARING = 70;
+    const SHIPMENT_STATUS_SHIPPED = 80;
+    const SHIPMENT_STATUS_RECEIVED = 90;
+
+    public $address_id;
+
+
     /**
      * @inheritdoc
      */
@@ -53,13 +74,21 @@ class Order extends \yii\db\ActiveRecord
         return '{{%order}}';
     }
 
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+            BlameableBehavior::className(),
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['user_id', 'sn', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
+            [['user_id', 'sn'], 'required'],
             [['user_id', 'country', 'province', 'city', 'district', 'payment_method', 'payment_status', 'payment_id', 'shipment_status', 'shipment_id', 'status', 'paid_at', 'shipped_at', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['payment_fee', 'shipment_fee', 'amount', 'tax'], 'number'],
             [['sn', 'phone', 'mobile', 'email'], 'string', 'max' => 32],
@@ -76,39 +105,40 @@ class Order extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'sn' => 'Sn',
-            'consignee' => 'Consignee',
-            'country' => 'Country',
-            'province' => 'Province',
-            'city' => 'City',
-            'district' => 'District',
-            'address' => 'Address',
-            'zipcode' => 'Zipcode',
-            'phone' => 'Phone',
-            'mobile' => 'Mobile',
-            'email' => 'Email',
-            'remark' => 'Remark',
-            'payment_method' => 'Payment Method',
-            'payment_status' => 'Payment Status',
-            'payment_id' => 'Payment ID',
-            'payment_name' => 'Payment Name',
-            'payment_fee' => 'Payment Fee',
-            'shipment_status' => 'Shipment Status',
-            'shipment_id' => 'Shipment ID',
-            'shipment_name' => 'Shipment Name',
-            'shipment_fee' => 'Shipment Fee',
-            'amount' => 'Amount',
-            'tax' => 'Tax',
-            'invoice' => 'Invoice',
-            'status' => 'Status',
-            'paid_at' => 'Paid At',
-            'shipped_at' => 'Shipped At',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
+            'id' => Yii::t('app', 'ID'),
+            'user_id' => Yii::t('app', 'User ID'),
+            'sn' => Yii::t('app', 'Sn'),
+            'consignee' => Yii::t('app', 'Consignee'),
+            'country' => Yii::t('app', 'Country'),
+            'province' => Yii::t('app', 'Province'),
+            'city' => Yii::t('app', 'City'),
+            'district' => Yii::t('app', 'District'),
+            'region' =>  Yii::t('app', 'Region'),
+            'address' => Yii::t('app', 'Address'),
+            'zipcode' => Yii::t('app', 'Zipcode'),
+            'phone' => Yii::t('app', 'Phone'),
+            'mobile' => Yii::t('app', 'Mobile'),
+            'email' => Yii::t('app', 'Email'),
+            'remark' => Yii::t('app', 'Remark'),
+            'payment_method' => Yii::t('app', 'Payment Method'),
+            'payment_status' => Yii::t('app', 'Payment Status'),
+            'payment_id' => Yii::t('app', 'Payment ID'),
+            'payment_name' => Yii::t('app', 'Payment Name'),
+            'payment_fee' => Yii::t('app', 'Payment Fee'),
+            'shipment_status' => Yii::t('app', 'Shipment Status'),
+            'shipment_id' => Yii::t('app', 'Shipment ID'),
+            'shipment_name' => Yii::t('app', 'Shipment Name'),
+            'shipment_fee' => Yii::t('app', 'Shipment Fee'),
+            'amount' => Yii::t('app', 'Amount'),
+            'tax' => Yii::t('app', 'Tax'),
+            'invoice' => Yii::t('app', 'Invoice'),
+            'status' => Yii::t('app', 'Status'),
+            'paid_at' => Yii::t('app', 'Paid At'),
+            'shipped_at' => Yii::t('app', 'Shipped At'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
+            'created_by' => Yii::t('app', 'Created By'),
+            'updated_by' => Yii::t('app', 'Updated By'),
         ];
     }
 
@@ -118,5 +148,128 @@ class Order extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public static function getPaymentMethodLabels($id = null)
+    {
+        $data = [
+            self::PAYMENT_METHOD_PAY => Yii::t('app', 'PAYMENT_METHOD_PAY'),
+            self::PAYMENT_METHOD_COD => Yii::t('app', 'PAYMENT_METHOD_COD'),
+        ];
+
+        if ($id !== null && isset($data[$id])) {
+            return $data[$id];
+        } else {
+            return $data;
+        }
+    }
+
+    public static function getStatusLabels($id = null)
+    {
+        $data = [
+            self::STATUS_CANCEL => Yii::t('app', 'STATUS_CANCEL'),
+            self::STATUS_DELETED => Yii::t('app', 'STATUS_DELETED'),
+            self::PAYMENT_STATUS_COD => Yii::t('app', 'PAYMENT_STATUS_COD'),
+            self::PAYMENT_STATUS_UNPAID => Yii::t('app', 'PAYMENT_STATUS_UNPAID'),
+            self::PAYMENT_STATUS_PAYING => Yii::t('app', 'PAYMENT_STATUS_PAYING'),
+            self::PAYMENT_STATUS_PAID => Yii::t('app', 'PAYMENT_STATUS_PAID'),
+            self::SHIPMENT_STATUS_UNSHIPPED => Yii::t('app', 'SHIPMENT_STATUS_UNSHIPPED'),
+            self::SHIPMENT_STATUS_PREPARING => Yii::t('app', 'SHIPMENT_STATUS_PREPARING'),
+            self::SHIPMENT_STATUS_SHIPPED => Yii::t('app', 'SHIPMENT_STATUS_SHIPPED'),
+            self::SHIPMENT_STATUS_RECEIVED => Yii::t('app', 'SHIPMENT_STATUS_RECEIVED'),
+        ];
+
+        if ($id !== null && isset($data[$id])) {
+            return $data[$id];
+        } else {
+            return $data;
+        }
+    }
+
+
+    public static function getPaymentStatusLabels($id = null)
+    {
+        $data = [
+            self::PAYMENT_STATUS_COD => Yii::t('app', 'PAYMENT_STATUS_COD'),
+            self::PAYMENT_STATUS_UNPAID => Yii::t('app', 'PAYMENT_STATUS_UNPAID'),
+            self::PAYMENT_STATUS_PAYING => Yii::t('app', 'PAYMENT_STATUS_PAYING'),
+            self::PAYMENT_STATUS_PAID => Yii::t('app', 'PAYMENT_STATUS_PAID'),
+        ];
+
+        if ($id !== null && isset($data[$id])) {
+            return $data[$id];
+        } else {
+            return $data;
+        }
+    }
+
+    public static function getShipmentStatusLabels($id = null)
+    {
+        $data = [
+            self::SHIPMENT_STATUS_UNSHIPPED => Yii::t('app', 'SHIPMENT_STATUS_UNSHIPPED'),
+            self::SHIPMENT_STATUS_PREPARING => Yii::t('app', 'SHIPMENT_STATUS_PREPARING'),
+            self::SHIPMENT_STATUS_SHIPPED => Yii::t('app', 'SHIPMENT_STATUS_SHIPPED'),
+            self::SHIPMENT_STATUS_RECEIVED => Yii::t('app', 'SHIPMENT_STATUS_RECEIVED'),
+        ];
+
+        if ($id !== null && isset($data[$id])) {
+            return $data[$id];
+        } else {
+            return $data;
+        }
+    }
+
+    public function getOrderProducts()
+    {
+        return $this->hasMany(OrderProduct::className(), ['order_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCountry0()
+    {
+        return $this->hasOne(Region::className(), ['id' => 'country']);
+        // var_dump($hasBug);die;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */ 
+    public function getProvince0()
+    {
+        return $this->hasOne(Region::className(), ['id' => 'province']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity0()
+    {
+        return $this->hasOne(Region::className(), ['id' => 'city']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDistrict0()
+    {
+        return $this->hasOne(Region::className(), ['id' => 'district']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUpdatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 }

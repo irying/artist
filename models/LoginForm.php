@@ -32,6 +32,22 @@ class LoginForm extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'id',
+            'username' => '用户名',
+            'password' => '密码',
+            'email' => '邮箱',
+            'role' => '角色',
+            'status' => '状态',
+            'created_at' => '创建时间',
+            'updated_at' => '更新时间',
+            'password' => Yii::t('app', 'Password'),
+            'repassword' => Yii::t('app', 'Repassword'),
+        ];
+    }
+
     /**
      * Validates the password.
      * This method serves as the inline validation for password.

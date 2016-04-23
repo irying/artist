@@ -4,6 +4,7 @@
 	margin:0 auto;
 	position:relative;
 	z-index:1;}
+
 .left{
 	width:640px;
 	height:480px;}
@@ -12,13 +13,18 @@
 	font-weight:bold;
 	font-family:Arial, Helvetica, sans-serif;
 	display:block;
-	line-height:50px;}
+	line-height:50px;
+	text-decoration: none;
+	color: #2d2d2d;
+	}
 .word a{
 	font-size:13px;
 	font-weight:bold;
 	font-family:Arial, Helvetica, sans-serif;
 	display:block;
-	line-height:30px;}
+	line-height:30px;
+	text-decoration: none;
+	color: #2d2d2d;}
 	
 .right{
 	width:320px;

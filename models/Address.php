@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "{{%address}}".
@@ -38,6 +40,14 @@ class Address extends \yii\db\ActiveRecord
         return '{{%address}}';
     }
 
+    public function behaviors()
+    {   
+        return [
+            TimestampBehavior::className(),
+            BlameableBehavior::className(),
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -60,23 +70,24 @@ class Address extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'name' => 'Name',
-            'consignee' => 'Consignee',
-            'country' => 'Country',
-            'province' => 'Province',
-            'city' => 'City',
-            'district' => 'District',
-            'address' => 'Address',
-            'zipcode' => 'Zipcode',
-            'phone' => 'Phone',
-            'mobile' => 'Mobile',
-            'email' => 'Email',
-            'default' => 'Default',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
+            'user_id' => Yii::t('app', 'User ID'),
+            'name' => Yii::t('app', 'Name'),
+            'consignee' => Yii::t('app', 'Consignee'),
+            'country' => Yii::t('app', 'Country'),
+            'province' => Yii::t('app', 'Province'),
+            'city' => Yii::t('app', 'City'),
+            'district' => Yii::t('app', 'District'),
+            'region' => Yii::t('app', 'Region'),
+            'address' => Yii::t('app', 'Address'),
+            'zipcode' => Yii::t('app', 'Zipcode'),
+            'phone' => Yii::t('app', 'Phone'),
+            'mobile' => Yii::t('app', 'Mobile'),
+            'email' => Yii::t('app', 'Email'),
+            'default' => '默认地址',
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
+            'created_by' => Yii::t('app', 'Created By'),
+            'updated_by' => Yii::t('app', 'Updated By'),
         ];
     }
 
@@ -107,15 +118,16 @@ class Address extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCountry()
+    public function getCountry0()
     {
         return $this->hasOne(Region::className(), ['id' => 'country']);
+        // var_dump($hasBug);die;
     }
 
     /**
      * @return \yii\db\ActiveQuery
-     */
-    public function getProvince()
+     */ 
+    public function getProvince0()
     {
         return $this->hasOne(Region::className(), ['id' => 'province']);
     }
@@ -123,7 +135,7 @@ class Address extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCity()
+    public function getCity0()
     {
         return $this->hasOne(Region::className(), ['id' => 'city']);
     }
@@ -131,7 +143,7 @@ class Address extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDistrict()
+    public function getDistrict0()
     {
         return $this->hasOne(Region::className(), ['id' => 'district']);
     }

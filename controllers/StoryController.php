@@ -6,9 +6,11 @@ use Yii;
 use app\models\Story;
 use app\models\StorySearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-
+use yii\base\InvalidParamException;
+use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 /**
  * StoryController implements the CRUD actions for Story model.
  */
@@ -16,14 +18,21 @@ class StoryController extends Controller
 {
     public $layout = 'column';
 
+    
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['view'],
+                'rules' => [
+                    [
+                        'actions' => ['view'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
+
             ],
         ];
     }
@@ -43,6 +52,11 @@ class StoryController extends Controller
         ]);
     }
 
+    public function actionList()
+    {
+        return $this->render('list');
+    }
+    
     /**
      * Displays a single Story model.
      * @param integer $id

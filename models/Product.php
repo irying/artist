@@ -60,23 +60,23 @@ class Product extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'aid' => 'Aid',
-            'name' => 'Name',
-            'stock' => 'Stock',
-            'price' => 'Price',
-            'color' => 'Color',
-            'size' => 'Size',
-            'front' => 'Front',
-            'back' => 'Back',
-            'keywords' => 'Keywords',
-            'description' => 'Description',
-            'sales' => 'Sales',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
+            'id' => Yii::t('app','ID'),
+            'aid' => Yii::t('app','Aid'),
+            'name' => Yii::t('app','Name'),
+            'stock' => Yii::t('app','Stock'),
+            'price' => Yii::t('app','Price'),
+            'color' => Yii::t('app','Color'),
+            'size' => Yii::t('app','Size'),
+            'front' => Yii::t('app','Front'),
+            'back' => Yii::t('app','Back'),
+            'keywords' => Yii::t('app','Keywords'),
+            'description' => Yii::t('app','Description'),
+            'sales' => Yii::t('app','Sales'),
+            'status' => Yii::t('app','Status'),
+            'created_at' => Yii::t('app','Created At'),
+            'updated_at' => Yii::t('app','Updated At'),
+            'created_by' => Yii::t('app','Created By'),
+            'updated_by' => Yii::t('app','Updated By'),
         ];
     }
     
@@ -107,5 +107,21 @@ class Product extends \yii\db\ActiveRecord
     public function getA()
     {
         return $this->hasOne(Article::className(), ['id' => 'aid']);
+    }
+
+     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUpdatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 }

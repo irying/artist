@@ -70,7 +70,7 @@ class Article extends \yii\db\ActiveRecord
                 return false;
     }
 
-     public function getAuthor()
+    public function getAuthor()
     {
         // return $this->hasOne(User2::className(), ['id' => 'author_id']);
         return $this->hasOne(User::className(), ['id' => 'author_id']);

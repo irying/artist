@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-
 /**
  * This is the model class for table "{{%cart}}".
  *
@@ -73,5 +72,11 @@ class Cart extends \yii\db\ActiveRecord
             }
         else
             return false;
+    }
+
+    public function getProduct0()
+    {
+        // return $this->hasOne(User2::className(), ['id' => 'author_id']);
+        return $this->hasOne(Product::className(), ['id' => 'product_id']);
     }
 }

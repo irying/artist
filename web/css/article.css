@@ -7,6 +7,8 @@
 	background-color: #DD5862;
 	border-radius: 32px;
 	position: absolute;
+	top: 88px;
+	left:285px;
 	height: 63px;
 	line-height: 63px;
 	width: 63px;
@@ -16,7 +18,10 @@
 .top_title{
 	font-size:30px;
 	margin-left:80px;
-	line-height:63px;}
+	line-height:63px;
+	position: absolute;
+	top: 85px;
+	left:280px;}
 
 #container { width: 620px; height: 438px; border: 3px solid #333; overflow: hidden; position: relative; margin:0 auto;}
 #list { width: 4340px; height: 438px; position: absolute; z-index: 1;}
@@ -214,7 +219,7 @@ position:relative;}
 #comment a{color:#0096ff;}
 .comment{background:#fefefe; padding:5px; margin:5px; 
     font-family: monospace;
-	border-left:2px solid #0096ff; 
+	border-left:2px solid #DD5862; 
 	border-bottom:1px dashed #aaa;  clear:both;
 
 	word-wrap: break-word;
@@ -224,7 +229,7 @@ position:relative;}
 }
 .sub{margin-left:50px;}
 form{/*padding:10px 30px;*/ border:2px solid #fafafa;}
-form:hover{background:#fafafa; border:2px solid #0096ff;}
+form:hover{background:#fafafa; border:2px solid #999;}
 
 .comment:hover{ background:#F8F9FB;}
 .comment p, .comment .control{color:#aaa;}

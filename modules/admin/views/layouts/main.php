@@ -22,142 +22,35 @@ use app\assets\AppAsset;
     <?php $this->head() ?>
 </head>
 <body>
-<?php $this->beginBody() ?>
+    <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => '口袋后台',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItemsMain = [
-        [ 
-            'label' => '期刊',
-            'url' => ['#'],
-            'active' => false,
-            'items' => [
-                [
-                    'label' => '文章',
-                    'url' => ['/admin/article'],
-                ],
-                [
-                    'label' => '图片',
-                    'url' => ['/admin/images'],
-                ],
-                [
-                    'label' => '评论',
-                    'url' => ['/admin/comment'],
-                ],
-            ],
-        ],
-        [ 
-            'label' => '故事',
-            'url' => ['#'],
-            'active' => false,
-            'items' => [
-                [
-                    'label' => '文章',
-                    'url' => ['/admin/article'],
-                ],
-                [
-                    'label' => '图片',
-                    'url' => ['/admin/images'],
-                ],
-                [
-                    'label' => '评论',
-                    'url' => ['/admin/comment'],
-                ],
-            ],
-        ],
-        [ 
-            'label' => '商品',
-            'url' => ['#'],
-            'active' => false,
-            'items' => [
-                [
-                    'label' => '文章',
-                    'url' => ['/admin/article'],
-                ],
-                [
-                    'label' => '图片',
-                    'url' => ['/admin/images'],
-                ],
-                [
-                    'label' => '评论',
-                    'url' => ['/admin/comment'],
-                ],
-            ],
-        ],
-        [ 
-            'label' => '系统  ',
-            'url' => ['#'],
-            'active' => false,
-            'items' => [
-                [
-                    'label' => '文章',
-                    'url' => ['/admin/article'],
-                ],
-                [
-                    'label' => '图片',
-                    'url' => ['/admin/images'],
-                ],
-                [
-                    'label' => '评论',
-                    'url' => ['/admin/comment'],
-                ],
-            ],
-        ],
-    ];
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-left'],
-        'items' => $menuItemsMain,
-        'encodeLabels' => true,
-        ]);
+    <div class="wrap">
+        <?= $this->render('/layouts/top-menu.php') ?>
 
-    $menuItems = [
-        [
-            'label' => Yii::t('app', 'Change Password'),
-            'url' => ['site/change-password'],
-        ],
-        ['label' => Yii::t('app', 'Home'), 'url' => ['/']],
-    ];
-if (Yii::$app->user->isGuest) {
-    $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
-} else {
-    $menuItems[] = [
-        'label' => Yii::t('app', 'Logout') . '(' . Yii::$app->user->identity->username . ')',
-        'url' => ['/site/logout'],
-        'linkOptions' => ['data-method' => 'post']
-    ];
-}
-echo Nav::widget([
-    'options' => ['class' => 'navbar-nav navbar-right'],
-    'items' => $menuItems,
-    // 'encodeLabels' => true,
-]);
-    NavBar::end();
-    ?>
-
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= $content ?>
+        <div class="container">
+            <section class="content-header">
+                <h2><?= $this->title ?></h2>
+                <?= Breadcrumbs::widget([
+                     'homeLink' => ['label' => '首页',
+        'url' => Yii::$app->getHomeUrl() . 'admin/user/index'],
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
+            </section>
+            <section class="content">
+                <?= $content ?>
+            </section>
+        </div>
     </div>
-</div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+    <!-- <footer class="footer">
+        <div class="container">
+            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
+            <p class="pull-right"><?= Yii::powered() ?></p>
+        </div>
+    </footer> -->
 
-<?php $this->endBody() ?>
+    <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

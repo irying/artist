@@ -16,16 +16,35 @@ use yii\web\BadRequestHttpException;
 
 class ArticleController extends Controller
 {
-	 public $layout = 'column';
+	public $layout = 'column';
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['view', 'del'],
+                'rules' => [
+                    [
+                        'actions' => ['view','del'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+
+            ],
+        ];
+    }
 	// 文章列表
  	public function actionIndex()
     {
         return $this->render('index');
     }
 
+    // 评论       
     public function actionView($id)
     {
-        $article = $this-> findModel($id);
+         $article = $this-> findModel($id);
         $model = new Comment();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
         		Yii::$app->request->referrer;

@@ -37,12 +37,6 @@ class SiteController extends Controller
                 ],
 
             ],
-            // 'verbs' => [
-            //     'class' => VerbFilter::className(),
-            //     'actions' => [
-            //         'logout' => ['post'],
-            //     ],
-            // ],
         ];
     }
 
@@ -86,13 +80,11 @@ class SiteController extends Controller
         Yii::$app->user->logout();
         return $this->goHome();
     }
-
+    
     public function actionSignup()
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
-            $user = $model->signup();
-            // var_dump($user);
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();

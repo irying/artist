@@ -1,0 +1,62 @@
+.con{
+	width:620px;
+	height:225px;
+	margin:0 auto;}
+.self{
+	width:62opx;
+	height:102px;
+	position:relative;}
+.self img{
+	position:absolute;
+	top:0px;
+	left:0px;}
+.self_word{
+	position:absolute;
+	left:120px;
+	top:-20px;}
+.sign{
+	font-size:14px;
+	margin-top:-20px;}
+	
+.line{
+	width:620px;
+	height:1px;
+	background:#999;}
+.online{
+	width:620px;
+	height:96px;
+	background:url(../images/online.gif) no-repeat;}
+
+.self_shop{
+	width:620px;
+	height:42px;
+	background-color: #F2F2F2;
+    border-radius: 4px;
+    padding: 0px 25px;
+	position:relative;
+	margin:0 auto;}
+.self_shop li{
+	float:left;
+	line-height:42px;
+	padding-right:10px;
+	font-size:17px;}
+.self_shop li a{
+	display:block;
+	text-decoration: none;}	
+.self_shop li:hover a{ color:#dd5862;}
+.shopbus{
+	position:absolute;
+	top:10px;
+	right:0px;
+	padding-right:15px;
+	font-size: 17px;}
+.shopbus a{ text-decoration: none;}
+.shopbus:hover a{ color:#dd5862;}
+.shopbus_img{
+	position:absolute;
+	top:6px;
+	right:100px;
+	padding-right:10px;}
+.shopbus_word{
+	height:30px;
+	line-height:30px;}

@@ -12,8 +12,7 @@ foreach($products as $product) {
 ?>
 <div id="main">
     <div class="top-next cle">
-        <div class="fl"> 我有账号，现在就<a href="javascript:;" id="login-link">登录</a> </div>
-        <div class="fr"> <a href="http://www.mayicun.com/item/newsearch" class="graybtn">继续购物</a> <a href="javascript:;" class="btn" id="checkout-top">&nbsp;去下单&nbsp;</a> </div>
+        <div class="fr"> <a href="<?= Yii::$app->urlManager->createUrl(['/']) ?>" class="graybtn">继续购物</a> <a href="javascript:;" class="btn" id="checkout-top">&nbsp;去下单&nbsp;</a> </div>
     </div>
     <div class="cart-box" id="cart-box">
         <div class="hd">
@@ -30,7 +29,7 @@ foreach($products as $product) {
                     <div class="check">
                         &nbsp;<!--input type="checkbox" name="goodsId" value="728286208" checked="checked" /-->
                     </div>
-                    <div class="pic"> <a href="<?= Yii::$app->urlManager->createUrl(['product/view', 'id' => $product->product_id]) ?>" target="_blank"> <img alt="<?= $product->name ?>" src=""></a> </div>
+                    <div class="pic"> <a href="<?= Yii::$app->urlManager->createUrl(['product/view', 'id' => $product->product_id]) ?>" target="_blank"> <img alt="<?= $product->name ?>" src="<?= \Yii::getAlias('@app').$product->product0->front ?>"></a> </div>
                     <div class="name"> <a href="<?= Yii::$app->urlManager->createUrl(['product/view', 'id' => $product->product_id]) ?>" target="_blank"> <?= $product->name ?> </a>
                         <p> </p>
                     </div>
@@ -54,7 +53,7 @@ foreach($products as $product) {
                 <p class="no1">
                     <a id="del-all" href="<?= Yii::$app->urlManager->createUrl(['cart/destroy']) ?>">清空购物车</a>
                 </p>
-                <p><a class="graybtn" href="<?= Yii::$app->urlManager->createUrl(['product/search']) ?>">继续购物</a></p>
+                <p><a class="graybtn" href="<?= Yii::$app->urlManager->createUrl(['/']) ?>">继续购物</a></p>
             </div>
             <div id="price-total" class="fr">
                 <p><?= $totalNumber ?>件商品，总价：<span class="red">¥<strong><?= $totalPrice ?></strong></span></p>

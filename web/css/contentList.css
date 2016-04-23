@@ -44,7 +44,7 @@ li{
 	margin-right:5px;
 	display:block;}
 .current{
-	background:url(images/page.png) repeat-x;}
+	background:url(../images/page.png) repeat-x;}
 	
 .con_right{
 	width:290px;
@@ -62,7 +62,7 @@ li{
 	width:350px;
 	position:absolute;
 	left:57px;
-	top:0px;}	
+	top:-13px;}	
 .con_right li{
 	padding-bottom:-12px;
 	height:42px;}

@@ -2,43 +2,63 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\Status;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Products';
+$this->title = '商品';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('创建商品', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            // ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'aid',
             'name',
-            'stock',
+            // 'stock',
             'price',
-            // 'color',
-            // 'size',
+            'color',
+            'size',
             // 'front',
             // 'back',
             // 'keywords',
             // 'description:ntext',
             // 'sales',
-            // 'status',
-            // 'created_at',
+            [
+                'attribute' => 'status',
+                'format' => 'html',
+                'value' => function ($model) {
+                    if ($model->status === Status::STATUS_ACTIVE) {
+                        $class = 'label-success';
+                    } elseif ($model->status === Status::STATUS_INACTIVE) {
+                        $class = 'label-warning';
+                    } else {
+                        $class = 'label-danger';
+                    }
+
+                    return '<span class="label ' . $class . '">' . Status::labels($model->status) . '</span>';
+                },
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    Status::labels(),
+                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'PROMPT_STATUS')]
+                )
+            ],
+            'created_at:datetime',
             // 'updated_at',
             // 'created_by',
             // 'updated_by',

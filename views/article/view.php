@@ -58,15 +58,11 @@ $script = '<script> aCommentList=[];'."\n\n".$GLOBALS['arr'][0];
 $script .= '</script>';
 
 $product = Product::findAll(['aid'=> $aid]);
-// var_dump($product);
-// $size = Product:
 $sizes = ArrayHelper::map($product, 'id', 'size');
-// var_dump($sizes);
 foreach ($sizes as $k=>$v) {
     if(!is_array($v))
         $sizes[$k] = explode(',', $v);
 }
-
 $colors = ArrayHelper::map($product, 'id', 'color');
 foreach ($colors as $ke=>$cv) {
     if(!is_array($cv))
@@ -111,13 +107,13 @@ $alia = str_replace('\\', '/', \Yii::getAlias('@app'));
     <!--观点-->
     <div class="middle">
         <p>也许菲茨杰拉德在写《了不起的盖茨比》时，并没有想到这部小说日后的辉煌。《了不起的盖茨比》从开拍之日起，人们的关注点便一直集中在莱昂纳多饰演的盖茨比身上，他的20年代正装复古造型甚至影响了T台的潮流。</p>
-        <br /><br />
+        <br />
         <p>Nick Carraway与Jay Gatsby为邻，更是整个故事的叙述者，Nick既在事外又在事内，既是局外人又是见证人，Nick始终保持着冷静理性的判断，见证了盖茨比美国梦的破灭。他的着装相比高调的Gatsby显得低调许多，但却不缺乏细节。</p>
-        <br /><br />
+        <br />
         <p>“富二代”Tom Buchanan是躺在前人留下的财富上盛气凌人地挥霍的典型，他总是通过炫耀财富来表现自己的优越地位和高人一等，连穿衣也不例外。性格凶狠的Tom喜爱马球运动，超高筒的马靴是他的风格标志，除此之外，复古硬草帽也是他经常佩戴的配饰。</p>
         <div class="middle_word">
         	<h5>Comment from Jack</h5>
-            <h6>2015-04-25</h6>
+            <h6>2016-04-25</h6>
         </div>
     </div>
     <div class="blank">
@@ -173,7 +169,7 @@ $alia = str_replace('\\', '/', \Yii::getAlias('@app'));
                         </div>
                     </div>
                     <div class="mes">
-                        <h3 style="color:#C03; font-size:16px; margin:20px 0;">三件套西装</h3>
+                        <h3 style="color:#C03; font-size:16px; margin:20px 0;"><?= $val->keywords?></h3>
                         <p class="txt"><?= $val->description?></p>
                     </div>
                 </div>
@@ -210,7 +206,7 @@ $alia = str_replace('\\', '/', \Yii::getAlias('@app'));
             <!--评论列表-->
             <div class="comment-list">
                 <div class="comment-box" user="self">
-                    <img class="myhead" src='<?=Yii::$app->request->baseUrl?>/images/first.jpg' alt="" />
+                    <img class="myhead" src='<?=Yii::$app->request->baseUrl?>/images/touxiang.jpg' alt="" />
                     <div class="comment-content" id="comment-content">
                         <p class="comment-txt"><span class="user">我:</span>土豪的世界...</p>
                         <p class="comment-time">
@@ -230,20 +226,22 @@ $alia = str_replace('\\', '/', \Yii::getAlias('@app'));
 </div>
 
 <?php
+$theUserid = Yii::$app->user->id;
+$theUsername = Yii::$app->user->identity->username;
 $url = Yii::$app->urlManager->createUrl(['article/view','id'=> $aid]);
 $delUrl = Yii::$app->urlManager->createUrl(['article/del']);
 $this->registerJsFile('@web/js/one_by_one.js',['depends' => app\assets\AppAsset::className()]);
 $js = <<<JS
 
-// function $(s){
-//         if(typeof s=='object') return s;
-//         return document.getElementById(s);
-//     }
+function $(s){
+        if(typeof s=='object') return s;
+        return document.getElementById(s);
+    }
 
-var html = "<form id='' action=$url method='post'>";
-    html += "<input type='hidden' id='comment-user_id' name='Comment[user_id]' value='7'>";
-    html +="<input type='hidden' id='comment-username' name='Comment[username]' value='admin'>";
-    html +="<input type='hidden' id='comment-article_id' name='Comment[article_id]' value='1'>";
+var html = "<form id action=$url method='post'>";
+    html += "<input type='hidden' id='comment-user_id' name='Comment[user_id]' value=$theUserid>";
+    html +="<input type='hidden' id='comment-username' name='Comment[username]' value=$theUsername>";
+    html +="<input type='hidden' id='comment-article_id' name='Comment[article_id]' value=$aid>";
     html +="<input type='hidden' id='comment-pid' name='Comment[pid]'>";            
     html +="<div class='form-group field-comment-content required'>";
     html +="<textarea id='comment-content' class='form-control' name='Comment[content]' rows='3'>";

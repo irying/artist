@@ -33,7 +33,7 @@ class SignupForm extends Model
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', 'Username'),
+            'username' => '用户',
             'password' => Yii::t('app', 'Password'),
             'email' => Yii::t('app', 'Email'),
             'status' => Yii::t('app', 'Status'),
@@ -42,11 +42,12 @@ class SignupForm extends Model
         ];
     }
 
-     public function signup()
+    public function signup()
     {
-        $user = new User();
+        $user = new UserForSign();
         $user->username = $this->username;
         $user->email = $this->email;
+        $user->role = 2;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         if ($user->save()) {

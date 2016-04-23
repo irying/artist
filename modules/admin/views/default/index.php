@@ -3,14 +3,14 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 //引入百度编辑器
 $this->registerJsFile('@web/public/ueditor/jquery-1.11.2.min.js');//注册自定义js
-$this->registerJsFile('@web/public/ueditor/ueditor.config.js');//注册自定义js
-$this->registerJsFile('@web/public/ueditor/ueditor.all.min.js');
+// $this->registerJsFile('@web/public/ueditor/ueditor.config.js');//注册自定义js
+// $this->registerJsFile('@web/public/ueditor/ueditor.all.min.js');
 $this->registerJsFile('@web/public/ueditor/lang/zh-cn/zh-cn.js');
 ?>
 <script type="text/javascript"></script>
 <script type="text/javascript">
 
-    var ue = UE.getEditor('editor');
+    // var ue = UE.getEditor('editor');
 
 </script>
 <style>

@@ -1,7 +1,7 @@
 <?php
     $this->registerCssFile('@web/css/index.css', ['depends' => app\assets\AppAsset::className()]);
 ?>
-<div class="menu">
+<div class="menu menu-first">
     <h3>前线期刊</h3>
 </div>
 
@@ -23,15 +23,15 @@
             </div>
         </div>
         <div class="box2">
-            <a href="<?= Yii::$app->urlManager->createUrl(['article/view', 'id' => '1']); ?>"><img src="images/vol.66.jpg" alt="" /></a>
+            <a href="<?= Yii::$app->urlManager->createUrl(['article/view', 'id' => '2']); ?>"><img src="images/vol.66.jpg" alt="" /></a>
             <div class="word">
-               <a href="<?= Yii::$app->urlManager->createUrl(['article/view', 'id' => '1']); ?>">vol.66 了不起的盖茨比</a>
+               <a href="<?= Yii::$app->urlManager->createUrl(['article/view', 'id' => '2']); ?>">vol.66 了不起的盖茨比</a>
             </div>
         </div>
     </div>
 </div>
 
-<div class="blank">
+<div class="blank4">
 </div>
 
 <div class="menu">
@@ -44,7 +44,7 @@
 <div class="story">
     <div class="story_left">
         <div class="story_top">
-            <a href="#"><img src="images/vol.83.1.jpg" /></a>
+            <a href="<?= Yii::$app->urlManager->createUrl(['story/view']); ?>"><img src="images/vol.83.1.jpg" /></a>
             <div class="story_title">
                 <h3>香泽粉黛</h3>
                 <p>The Best or Nothing</p>
@@ -71,7 +71,7 @@
         </div>
     </div>
 </div>
-<div class="blank">
+<div class="blank5">
 </div>
 
 <div class="menu">
@@ -109,7 +109,7 @@
         </li>
         <li>
             <a href="#">
-                <img src="images/20.1.jpg" />
+                <img src="images/21.1.jpg" />
                 <i class="mask third"></i>
             </a>
         </li>
