@@ -29,10 +29,10 @@ class CartController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['shop'],
+                'only' => ['shop','index','delete','destroy'],
                 'rules' => [
                     [
-                        'actions' => ['shop'],
+                        'actions' => ['shop','index','delete','destroy'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -44,7 +44,6 @@ class CartController extends Controller
 
 	public function actionIndex()
 	{
-		// $this->layout = '';
 		if (Yii::$app->request->get('type') && Yii::$app->request->get('product_id')) {
 			$type = Yii::$app->request->get('type');
 			$productId = Yii::$app->request->get('product_id');
@@ -126,14 +125,7 @@ class CartController extends Controller
             	$this->redirect('/cart/shop');
             }
             $model->amount += floatval($model->shipment_fee);
-            // var_dump($model);
-            // die;
-            // 到保存了
             if ($model->save()) {
-            	// echo "<pre>";
-            	// print_r($products);
-            	// echo "</pre>";
-            	// die;
             	foreach ($products as $product ) {
             		$orderProduct = new OrderProduct;
             		$orderProduct->order_id = $model->id;
@@ -235,7 +227,7 @@ class CartController extends Controller
         $cart->color = $color;
         $cart->size = $size;
         $cart->number = $number;
-        $cart->phprice = $model->price;
+        $cart->price = $model->price;
         if($cart->save())
 			return [
 	            'status' => 1,

@@ -31,7 +31,7 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['content', 'tags'], 'string'],
+            [['con_head','con_middle','con_foot', 'tags'], 'string'],
             [['title'], 'string', 'max' => 128],
         ];
     }
@@ -47,6 +47,9 @@ class Article extends \yii\db\ActiveRecord
             'title' => '标题',
             'content' => '内容',
             'tags' => '标签',
+            'con_head' => '开头',
+            'con_middle' => '中段',
+            'con_foot' => '结尾',
             'create_time' => '创建时间',
             'update_time' => '更新时间',
         ];

@@ -17,9 +17,9 @@
     </div>
     <div class="right">
         <div class="box1">
-            <a href="<?= Yii::$app->urlManager->createUrl(['article/view', 'id' => '2']); ?>"><img src="images/vol.99.jpg" alt="" /></a>
+            <a href="<?= Yii::$app->urlManager->createUrl(['article/view', 'id' => '1']); ?>"><img src="images/vol.99.jpg" alt="" /></a>
             <div class="word">
-               <a href="<?= Yii::$app->urlManager->createUrl(['article/view', 'id' => '2']); ?>">vol.99 盛夏光年</a>
+               <a href="<?= Yii::$app->urlManager->createUrl(['article/view', 'id' => '1']); ?>">vol.99 再见，黑曼巴</a>
             </div>
         </div>
         <div class="box2">

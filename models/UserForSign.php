@@ -78,19 +78,23 @@ class UserForSign extends \yii\db\ActiveRecord implements \yii\web\IdentityInter
     {
         return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
+
     public static function findIdentityByAccessToken($token, $type = null)
     {
         throw new NotSupportedException('findIdentityByAccessToken" is not implemented.');
         
     }
+    
     public function getId()
     {
         return $this->getPrimaryKey();
     }
+
     public function generateAuthKey()
     {
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
+
     public function getAuthKey()
     {
          return $this->auth_key;
@@ -100,15 +104,17 @@ class UserForSign extends \yii\db\ActiveRecord implements \yii\web\IdentityInter
     {
          return $this->getAuthKey() === $authKey;
     }
-    // myself
+
     public function setPassword($password)
     {
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
+
     public static function findByUserName($username)
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
+
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password_hash);

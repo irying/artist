@@ -21,9 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'content') ?>
+    <?= $form->field($model, 'con_head') ?>
 
-    <?= $form->field($model, 'tags') ?>
+    <?= $form->field($model, 'con_middle') ?>
+
+    <?php // echo $form->field($model, 'con_foot') ?>
+
+    <?php // echo $form->field($model, 'tags') ?>
 
     <?php // echo $form->field($model, 'create_time') ?>
 

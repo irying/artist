@@ -4,7 +4,7 @@ use yii\bootstrap\NavBar;
 
 NavBar::begin([
     'brandLabel' => '后台管理',
-    'brandUrl' => Yii::$app->urlManager->createUrl(['site/signup']),
+    'brandUrl' => Yii::$app->urlManager->createUrl(['/admin/order']),
     'options' => [
         'class' => 'navbar navbar-inverse navbar-fixed-top',
     ],
@@ -40,7 +40,7 @@ $menuItemsMain = [
             ],
             [
                 'label' => '原创',
-                'url' => ['/admin/comment'],
+                'url' => ['/admin/article'],
             ],
         ],
     ],
@@ -51,7 +51,7 @@ $menuItemsMain = [
         'items' => [
             [
                 'label' => '商品',
-                'url' => ['/admin/product'],
+                'url' => ['/admin/comment'],
             ],
             [
                 'label' => '原创',

@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Article;
+use app\models\Comment;
 
 /**
- * ArticleSearch represents the model behind the search form about `app\models\Article`.
+ * CommentSearch represents the model behind the search form about `app\models\Comment`.
  */
-class ArticleSearch extends Article
+class CommentSearch extends Comment
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'author_id'], 'integer'],
-            [['title', 'con_head', 'con_middle', 'con_foot', 'tags', 'create_time', 'update_time'], 'safe'],
+            [['id', 'pid', 'user_id', 'article_id', 'point', 'up', 'down', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'content'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ArticleSearch extends Article
      */
     public function search($params)
     {
-        $query = Article::find();
+        $query = Comment::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,16 +57,19 @@ class ArticleSearch extends Article
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'author_id' => $this->author_id,
+            'pid' => $this->pid,
+            'user_id' => $this->user_id,
+            'article_id' => $this->article_id,
+            'point' => $this->point,
+            'up' => $this->up,
+            'down' => $this->down,
+            'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'con_head', $this->con_head])
-            ->andFilterWhere(['like', 'con_middle', $this->con_middle])
-            ->andFilterWhere(['like', 'con_foot', $this->con_foot])
-            ->andFilterWhere(['like', 'tags', $this->tags])
-            ->andFilterWhere(['like', 'create_time', $this->create_time])
-            ->andFilterWhere(['like', 'update_time', $this->update_time]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'content', $this->content]);
 
         return $dataProvider;
     }

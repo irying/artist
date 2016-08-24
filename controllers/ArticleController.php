@@ -44,7 +44,7 @@ class ArticleController extends Controller
     // 评论       
     public function actionView($id)
     {
-         $article = $this-> findModel($id);
+        $article = $this-> findModel($id);
         $model = new Comment();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
         		Yii::$app->request->referrer;

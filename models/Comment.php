@@ -54,15 +54,15 @@ class Comment extends \yii\db\ActiveRecord
             'id' => 'ID',
             'pid' =>'pid',
             'user_id' => 'User ID',
-            'username' => 'Username',
-            'article_id' => 'Article ID',
+            'username' => '用户',
+            'article_id' => '文章编号',
             'content' => '评论',
             'point' => 'Point',
             'up' => 'Up',
             'down' => 'Down',
             'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => '创建时间',
+            'updated_at' => '更新时间',
         ];
     }
 
@@ -88,6 +88,7 @@ class Comment extends \yii\db\ActiveRecord
             {
                 if($insert)
                 {
+                    $this->pid=0;
                     $this->created_at=time();
                     $this->updated_at=time();
                 }

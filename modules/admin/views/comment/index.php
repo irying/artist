@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\ArticleSearch */
+/* @var $searchModel app\models\CommentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '话题';
+$this->title = '评论';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="article-index">
+<div class="comment-index">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('创建话题', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('创建评论', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,14 +25,17 @@ $this->params['breadcrumbs'][] = $this->title;
             // ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'author_id',
-            'title',
-            'con_head:ntext',
-            'con_middle:ntext',
-            'con_foot:ntext',
-            // 'tags:ntext',
-            'create_time:datetime',
-            'update_time:datetime',
+            'article_id',
+            // 'pid',
+            // 'user_id',
+            'username',
+            'content:ntext',
+            // 'point',
+            // 'up',
+            // 'down',
+            // 'status',
+            'created_at:datetime',
+            'updated_at:datetime',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

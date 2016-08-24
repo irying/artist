@@ -2,10 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kucha\ueditor\UEditor;
 
 /* @var $this yii\web\View */
-/* @var $model app\Models\Article */
+/* @var $model app\models\Article */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -15,8 +14,9 @@ use kucha\ueditor\UEditor;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->widget(UEditor::className()) ?>
-
+    <?= $form->field($model, 'con_head')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'con_middle')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'con_foot')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'tags')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">

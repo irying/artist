@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\Comment;
 use app\models\Product;
+use app\models\Article;
 use yii\helpers\ArrayHelper;
 $this->registerCssFile('@web/css/article.css', ['depends' => app\assets\AppAsset::className()]);
 
@@ -68,29 +69,27 @@ foreach ($colors as $ke=>$cv) {
     if(!is_array($cv))
         $colors[$ke] = explode('，', $cv);
 }
-// $sizes['2'] = array('X','M'); 
-// var_dump(\Yii::getAlias('@webroot'));
-// echo \Yii::$app->request->serverName;
+
 $alia = str_replace('\\', '/', \Yii::getAlias('@app'));
 // var_dump(basename($alia));
 ?>
 <!--内容-->
 <div class="con">
 	<div class="top">
-    	<span class="top_vol">66</span>
-        <span class="top_title">了不起的盖茨比</span>
+    	<span class="top_vol"><?php if(1 == $aid) echo "99";else echo "66";?></span>
+        <span class="top_title"><?= Article::find()->where(['id' => $aid])->one()->title;?></span>
     </div>
     <div class="blank2">
     </div>
     <div id="container">
         <div id="list" style="left: -620px;">
-            <?=Html::img('@web/images/first.jpg')?>
-            <?=Html::img('@web/images/fifth.jpg')?>
-            <?=Html::img('@web/images/second.jpg')?>
-            <?=Html::img('@web/images/third.jpg')?>
-            <?=Html::img('@web/images/forth.jpg')?>
-            <?=Html::img('@web/images/first.jpg')?>
-            <?=Html::img('@web/images/fifth.jpg')?>
+            <?=Html::img("@web/images/".$aid."_first.jpg")?>
+            <?=Html::img("@web/images/".$aid."_fifth.jpg")?>
+            <?=Html::img("@web/images/".$aid."_second.jpg")?>
+            <?=Html::img("@web/images/".$aid."_third.jpg")?>
+            <?=Html::img("@web/images/".$aid."_forth.jpg")?>
+            <?=Html::img("@web/images/".$aid."_first.jpg")?>
+            <?=Html::img("@web/images/".$aid."_fifth.jpg")?>
         </div>
         <div id="buttons">
             <span index="1" class="on"></span>
@@ -106,11 +105,11 @@ $alia = str_replace('\\', '/', \Yii::getAlias('@app'));
     </div>
     <!--观点-->
     <div class="middle">
-        <p>也许菲茨杰拉德在写《了不起的盖茨比》时，并没有想到这部小说日后的辉煌。《了不起的盖茨比》从开拍之日起，人们的关注点便一直集中在莱昂纳多饰演的盖茨比身上，他的20年代正装复古造型甚至影响了T台的潮流。</p>
+        <p><?= Article::find()->where(['id' => $aid])->one()->con_head;?></p>
         <br />
-        <p>Nick Carraway与Jay Gatsby为邻，更是整个故事的叙述者，Nick既在事外又在事内，既是局外人又是见证人，Nick始终保持着冷静理性的判断，见证了盖茨比美国梦的破灭。他的着装相比高调的Gatsby显得低调许多，但却不缺乏细节。</p>
+        <p><?= Article::find()->where(['id' => $aid])->one()->con_middle;?></p>
         <br />
-        <p>“富二代”Tom Buchanan是躺在前人留下的财富上盛气凌人地挥霍的典型，他总是通过炫耀财富来表现自己的优越地位和高人一等，连穿衣也不例外。性格凶狠的Tom喜爱马球运动，超高筒的马靴是他的风格标志，除此之外，复古硬草帽也是他经常佩戴的配饰。</p>
+        <p><?= Article::find()->where(['id' => $aid])->one()->con_foot;?></p>
         <div class="middle_word">
         	<h5>Comment from Jack</h5>
             <h6>2016-04-25</h6>
@@ -187,7 +186,7 @@ $alia = str_replace('\\', '/', \Yii::getAlias('@app'));
         <?= Html::activeHiddenInput($model, 'user_id', ['value' => Yii::$app->user->id]) ?>
         <?= Html::activeHiddenInput($model, 'username', ['value' => Yii::$app->user->identity->username]) ?>
         <?= Html::activeHiddenInput($model, 'article_id', ['value' => Yii::$app->Request->get('id')]) ?>
-        <?= Html::activeHiddenInput($model, 'pid') ?>
+        <?= Html::activeHiddenInput($model, 'pid', ['value' => 0]) ?>
             <div class="text-box">
                 <!-- <textarea class="express" autocomplete="off">你怎么看？</textarea> -->
                 <!-- <button class="btn1">发 布</button> -->
@@ -242,7 +241,7 @@ var html = "<form id action=$url method='post'>";
     html += "<input type='hidden' id='comment-user_id' name='Comment[user_id]' value=$theUserid>";
     html +="<input type='hidden' id='comment-username' name='Comment[username]' value=$theUsername>";
     html +="<input type='hidden' id='comment-article_id' name='Comment[article_id]' value=$aid>";
-    html +="<input type='hidden' id='comment-pid' name='Comment[pid]'>";            
+    html +="<input type='hidden' id='comment-pid' name='Comment[pid]' value='0'>";            
     html +="<div class='form-group field-comment-content required'>";
     html +="<textarea id='comment-content' class='form-control' name='Comment[content]' rows='3'>";
     html +="</textarea>";

@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Article */
+/* @var $model app\models\Comment */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => '话题', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => '评论', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="article-view">
+<div class="comment-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,14 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'author_id',
-            'title',
-            'con_head:ntext',
-            'con_middle:ntext',
-            'con_foot:ntext',
-            'tags:ntext',
-            'create_time:datetime',
-            'update_time:datetime',
+            'pid',
+            'user_id',
+            'username',
+            'article_id',
+            'content:ntext',
+            'point',
+            'up',
+            'down',
+            'status',
+            'created_at:datetime',
+            'updated_at:datetime',
         ],
     ]) ?>
 

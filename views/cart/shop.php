@@ -29,7 +29,7 @@ foreach($products as $product) {
                     <div class="check">
                         &nbsp;<!--input type="checkbox" name="goodsId" value="728286208" checked="checked" /-->
                     </div>
-                    <div class="pic"> <a href="<?= Yii::$app->urlManager->createUrl(['product/view', 'id' => $product->product_id]) ?>" target="_blank"> <img alt="<?= $product->name ?>" src="<?= \Yii::getAlias('@app').$product->product0->front ?>"></a> </div>
+                    <div class="pic"> <a href="<?= Yii::$app->urlManager->createUrl(['product/view', 'id' => $product->product_id]) ?>" target="_blank"> <img alt="<?= $product->name ?>" src="#"></a> </div>
                     <div class="name"> <a href="<?= Yii::$app->urlManager->createUrl(['product/view', 'id' => $product->product_id]) ?>" target="_blank"> <?= $product->name ?> </a>
                         <p> </p>
                     </div>
